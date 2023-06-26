@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import Todo from "./Todo";
 
 it("renders without crashing", function() {
@@ -9,4 +9,22 @@ it("renders without crashing", function() {
 it("matches snapshot", function() {
   const { asFragment } = render(<Todo />);
   expect(asFragment()).toMatchSnapshot();
+});
+
+it("updates on form submit", function () {
+    const updateMock = jest.fn()
+    const { getByText } = render(<Todo update={updateMock} />);
+    const editButton = getByText("Edit");
+    fireEvent.click(editButton);
+    const updateButton = getByText("Update");
+    fireEvent.click(updateButton);
+    expect(updateMock).toHaveBeenCalled();
+});
+
+it("removes on delete button click", function() {
+    const removeMock = jest.fn();
+    const { getByText } = render(<Todo remove={removeMock} />);
+    const deleteButton = getByText("X");
+    fireEvent.click(deleteButton);
+    expect(removeMock).toHaveBeenCalled();
 });

@@ -10,3 +10,11 @@ it("matches snapshot", function() {
   const { asFragment } = render(<NewTodoForm />);
   expect(asFragment()).toMatchSnapshot();
 });
+
+it("creates task on form submit", function () {
+    const createMock = jest.fn();
+    const { getByText } = render(<NewTodoForm createTodo={createMock} />);
+    const createButton = getByText("Add todo!");
+    fireEvent.click(createButton);
+    expect(createMock.toHaveBeenCalled);
+})
