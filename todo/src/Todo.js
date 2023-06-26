@@ -24,7 +24,7 @@ const Todo = ({ task = "example task", id="1", remove, update}) => {
         <div>
             <li>{task}</li>
             <button onClick={toggleEdit}>Edit</button>
-            <button onClick={handleDelete}>x</button>
+            <button onClick={handleDelete}>X</button>
         </div>
     );
 
